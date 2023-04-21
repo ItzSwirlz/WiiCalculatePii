@@ -50,29 +50,7 @@ int main(int argc, char **argv) {
 	// e.g. printf ("\x1b[%d;%dH", row, column );
 	printf("\x1b[2;0H");
 
-
-	// Gregory-Leibniz series
-	// (4/1) - (4/3) + (4/5) - (4/7) + (4/9)...
-	// Doesn't converge to Pi as quickly as other methods.
-	double ret = 4.0;
-	bool negative = true;
-	for(float i = 3.0; i <= INT_MAX; i += 2.0) {
-		if(negative) {
-			ret -= (4.0/i);
-			negative = false;
-		} else {
-			ret += (4.0/i);
-			negative = true;
-		}
-
-		// see the converging
-		// 78 decimals is the most an HDTV should be able to handle (or at least on dolphin for me)
-		printf("%.78lf", ret);
-		printf("\n");
-	}
-
-	// final result
-	printf("%.78lf", ret);
+	printf("WARNING: The screen will flash to show the convergence of Pi as it happens. Press A to continue.");
 
 	while(1) {
 
@@ -82,6 +60,28 @@ int main(int argc, char **argv) {
 		// WPAD_ButtonsDown tells us which buttons were pressed in this loop
 		// this is a "one shot" state which will not fire again until the button has been released
 		u32 pressed = WPAD_ButtonsDown(0);
+
+		if(pressed & WPAD_ButtonsHeld(0) & WPAD_BUTTON_A) {
+			// Gregory-Leibniz series
+			// (4/1) - (4/3) + (4/5) - (4/7) + (4/9)...
+			// Doesn't converge to Pi as quickly as other methods.
+			double ret = 4.0;
+			bool negative = true;
+			for(float i = 3.0; i <= INT_MAX; i += 2.0) {
+				if(negative) {
+					ret -= (4.0/i);
+					negative = false;
+				} else {
+					ret += (4.0/i);
+					negative = true;
+				}
+			}
+
+			// see the converging
+			// 78 decimals is the most an HDTV should be able to handle (or at least on dolphin for me)
+			printf("%.78lf", ret);
+			printf("\n");
+		}
 
 		// We return to the launcher application via exit
 		if ( pressed & WPAD_BUTTON_HOME ) exit(0);
