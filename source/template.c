@@ -66,17 +66,13 @@ int main(int argc, char **argv) {
 		}
 
 		// see the converging
-
-		// FIXME: printf in c automatically rounds, whether you like it or not.
-		// This makes it hard to see the converging, as eventually you can get
-		// 3.14158 and 3.14160 (examples) just going back and forth without seeing
-		// the rest of what's happening.
-		printf("%lf", ret);
+		// 78 decimals is the most an HDTV should be able to handle (or at least on dolphin for me)
+		printf("%.78lf", ret);
 		printf("\n");
 	}
 
 	// final result
-	printf("%lf", ret);
+	printf("%.78lf", ret);
 
 	while(1) {
 
